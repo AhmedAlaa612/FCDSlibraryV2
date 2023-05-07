@@ -72,7 +72,7 @@ public class MainControllers implements Initializable {
         
         srch.textProperty().addListener((observable, oldValue, newValue) -> {
 			booksrch.setPredicate(book -> {
-				// If filter text is empty, display all persons.
+				// If filter text is empty, display all books.
 								
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
