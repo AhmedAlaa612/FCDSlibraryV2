@@ -4,11 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-
 import java.io.IOException;
 
 public class AddBookController {
@@ -30,9 +27,8 @@ public class AddBookController {
     private RadioButton fictionBtn;
     @FXML
     private RadioButton nonfictionBtn;
-
     @FXML
-    public void submitBtn(ActionEvent event) throws IOException {
+    public void submitBtn(){
         String isbn = isbnField.getText();
         String title = titleField.getText();
         String author = authorField.getText();
@@ -50,14 +46,10 @@ public class AddBookController {
             alert.showAndWait();
             return;
         }
-        Book newbook;
-        if (isFiction){
-            newbook = new Fiction(isbn,title,author,publisher,year);
-        }
-        else {
-            newbook = new NonFiction(isbn,title,author,publisher,year);
-        }
-        Library.getInstance().addBook(newbook);
+        if (isFiction)
+            Library.getInstance().addBook(isbn,title,author,publisher,year,"Fiction");
+        else
+            Library.getInstance().addBook(isbn,title,author,publisher,year,"Non-Fiction");
         isbnField.clear();
         titleField.clear();
         authorField.clear();
@@ -67,11 +59,9 @@ public class AddBookController {
         nonfictionBtn.setSelected(false);
         Stage stage = (Stage)submitBtn.getScene().getWindow();
         stage.close();
-        Main.showMainview();
     }
-
     @FXML
-    private void cancelBtn(ActionEvent event) throws IOException {
+    private void cancelBtn() {
         Stage stage = (Stage)cancelButton.getScene().getWindow();
         stage.close();
     }

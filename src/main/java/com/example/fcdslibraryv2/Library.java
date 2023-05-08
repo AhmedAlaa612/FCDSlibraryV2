@@ -1,18 +1,16 @@
 package com.example.fcdslibraryv2;
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Library {
     private static Library instance;
-    private ArrayList<Book> library;
-
-    private Library() {
-        library = new ArrayList<>();
-    }
+    private Library() {}
     public static Library getInstance(){
         if (instance == null)
             instance = new Library();
         return instance;
     }
+    private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     public void addBook(String isbn, String title, String author, String publisher, String release_year, String genre) {
         Book book;
@@ -20,9 +18,8 @@ public class Library {
             book = new Fiction(isbn, title, author, publisher, release_year);
         else
             book = new NonFiction(isbn, title, author, publisher, release_year);
-        //TODO: check if book with the same isbn already there
         if (searchBooks(book.getIsbn()) == null) {
-            library.add(book);
+            bookList.add(book);
             System.out.println("New book added successfully!");
             return;
         }
@@ -30,47 +27,25 @@ public class Library {
     }
     public void addBook(Book book){
         if (searchBooks(book.getIsbn()) == null) {
-            library.add(book);
+            bookList.add(book);
             System.out.println("New book added successfully!");
             return;
         }
         System.out.println("Book Already in library!");
     }
-    public void deleteBook(String isbn) {
-        //TODO: search for a book with isbn
-        //TODO: if found remove from library, else display not found
-        for (int i = 0; i < library.size(); i++){
-            if (library.get(i).getIsbn().equals(isbn)){
-                library.remove(i);
-                System.out.println("Book removed successfully!");
-                return;
-            }
-        }
-        System.out.println("Book not found!");
-    }
     public void deleteBook(Book book) {
-        library.remove(book);
+        bookList.remove(book);
+        System.out.println("Book removed successfully!");
     }
 
     public Book searchBooks(String isbn) {
-        for (Book book : library) {
+        for (Book book : bookList) {
             if (book.getIsbn().equals(isbn))
                 return book;
         }
         return null;
     }
-    //temporary
-    public void showBooks() {
-        System.out.println("number of books in library: "+ library.size());
-        for (Book book: library){
-            System.out.println(book.getTitle());
-        }
+    public ObservableList<Book> getBookList() {
+        return bookList;
     }
-    
-    
-    public ArrayList<Book> getlist(){
-    	return library;
-    }
-    
-    
 }

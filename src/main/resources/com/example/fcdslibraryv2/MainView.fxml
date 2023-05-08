@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -32,6 +33,11 @@
                   <Font name="Franklin Gothic Demi Cond" size="21.0" />
                </font>
             </Button>
+            <TextField fx:id="srch" layoutX="120.0" layoutY="85.0" prefHeight="36.0" prefWidth="416.0" promptText="Search">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
    </top>
