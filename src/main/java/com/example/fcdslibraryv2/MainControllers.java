@@ -2,6 +2,7 @@ package com.example.fcdslibraryv2;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -18,12 +19,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainControllers implements Initializable {
-    public static MainControllers instance;
-    public static MainControllers getIsntance(){
-        if (instance == null)
-            instance = new MainControllers();
-        return instance;
-    }
     @FXML
     private void addBtn() throws IOException {
         Main.showAdd();
@@ -55,24 +50,16 @@ public class MainControllers implements Initializable {
     @FXML
     private TableColumn<Book, String> genre;
 
-    ObservableList<Book> Books_updated;
-    
     public void search(){
-        //searching functions
-
         //filtered list
-        FilteredList<Book> booksrch = new FilteredList<>(Books_updated,b ->true);
-
-        //linking  list to searchbox
-
+        FilteredList<Book> booksrch = new FilteredList<>(Library.getInstance().getBookList(),b ->true);
+        //linking  list to search box
         srch.textProperty().addListener((observable, oldValue, newValue) -> {
             booksrch.setPredicate(book -> {
                 // If filter text is empty, display all books.
-
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-
                 //getting the string in lowercase
                 String lowerCaseFilter = newValue.toLowerCase();
 
@@ -81,13 +68,11 @@ public class MainControllers implements Initializable {
                 } else if (book.getTitle().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter by book title.
                 }
-                else if (book.getAuthor().toLowerCase().contains(lowerCaseFilter)) {
+                if (book.getAuthor().toLowerCase().contains(lowerCaseFilter)) {
                     return true;//Filter by book author
                 }
-                else  {
-                    return false; // Does not match.
-                }}
-            );
+                return false; // Does not match.
+            });
         });
         //sorting the filtered list
         SortedList<Book> sortedData = new SortedList<>(booksrch);
@@ -97,8 +82,7 @@ public class MainControllers implements Initializable {
         library.setItems(sortedData);
     }
     public void load_data(){
-        Books_updated = FXCollections.observableList(Library.getInstance().getlist());
-        library.setItems(Books_updated);
+        library.setItems(Library.getInstance().getBookList());
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -111,24 +95,28 @@ public class MainControllers implements Initializable {
         release_year.setCellValueFactory(new PropertyValueFactory<>("release_year"));
         publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        // Add a listener to the book list
+        Library.getInstance().getBookList().addListener((ListChangeListener.Change<? extends Book> change) -> {
+            // In the listener, add the new object to the tableview.
+            while (change.next()) {
+                if (change.wasAdded() || change.wasRemoved()) {
+                    load_data();
+                }
+            }
+        });
         //search
         search();
         deleteBtn.disableProperty().bind(
                 Bindings.isEmpty(library.getSelectionModel().getSelectedItems())
         );
-
     }
     @FXML
-    public void handleDeleteButtonAction(ActionEvent event) {
+    public void handleDeleteButtonAction() {
         // Get the selected Book object from the TableView
         Book selectedBook = library.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             Library.getInstance().deleteBook(selectedBook);
-//            library.getItems().remove(selectedBook);
-//            Books_updated.remove(selectedBook);
-//            library.refresh();
         }
-        load_data();
     }
     @FXML
     public void refreshScene() throws IOException {

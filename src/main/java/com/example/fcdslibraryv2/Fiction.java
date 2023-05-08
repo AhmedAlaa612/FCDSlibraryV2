@@ -5,7 +5,6 @@ public class Fiction extends Book{
     public Fiction(String isbn, String title, String author, String publisher, String release_year) {
         super(isbn, title, author, publisher, release_year);
     }
-
     @Override
     public String getGenre() {
         return genre;
