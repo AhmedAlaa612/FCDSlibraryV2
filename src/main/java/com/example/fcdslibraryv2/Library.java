@@ -12,7 +12,7 @@ public class Library {
     }
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
-    public void addBook(String isbn, String title, String author, String publisher, String release_year, String genre) {
+    public void addBook(String isbn, String title, String author, String publisher, String release_year, String genre) throws Exception {
         Book book;
         if (genre.equals("Fiction"))
             book = new Fiction(isbn, title, author, publisher, release_year);
@@ -23,7 +23,8 @@ public class Library {
             System.out.println("New book added successfully!");
             return;
         }
-        System.out.println("Book Already in library!");
+        throw new Exception("Book Already in library!");
+//        System.out.println("Book Already in library!");
     }
     public void addBook(Book book){
         if (searchBooks(book.getIsbn()) == null) {

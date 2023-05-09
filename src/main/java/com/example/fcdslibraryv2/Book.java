@@ -12,38 +12,23 @@ public abstract class Book {
     //abstraction
     public abstract String getGenre();
     // setters and getters
-    public String getInfo() {
-        return String.format("Title: %s\nISBN: %s\nAuthor: %s\nPublisher: %s\nRelease year: %s", title, isbn
-                , author, publisher, release_year);
-    }
     public String getIsbn() {
         return isbn;
     }
-
 
     public String getTitle() {
         return title;
     }
 
-   
-
     public String getAuthor() {
         return author;
     }
-
-
 
     public String getPublisher() {
         return publisher;
     }
 
-
-
     public String getRelease_year() {
         return release_year;
     }
-    
-    
-
-    
 }

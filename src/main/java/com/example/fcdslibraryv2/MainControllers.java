@@ -119,7 +119,7 @@ public class MainControllers implements Initializable {
         }
     }
     @FXML
-    public void refreshScene() throws IOException {
+    public void refreshScene() {
         library.refresh();
     }
 }
