@@ -28,12 +28,7 @@
                   <Font name="Franklin Gothic Demi Cond" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="refreshBtn" layoutX="670.0" layoutY="24.0" mnemonicParsing="false" onAction="#refreshScene" prefHeight="38.0" prefWidth="102.0" text="refresh" AnchorPane.bottomAnchor="101.6" AnchorPane.rightAnchor="28.600000000000023" AnchorPane.topAnchor="24.0">
-               <font>
-                  <Font name="Franklin Gothic Demi Cond" size="21.0" />
-               </font>
-            </Button>
-            <TextField fx:id="srch" layoutX="120.0" layoutY="85.0" prefHeight="36.0" prefWidth="416.0" promptText="Search">
+            <TextField fx:id="srch" layoutX="26.0" layoutY="84.0" prefHeight="36.0" prefWidth="416.0" promptText="Search" AnchorPane.leftAnchor="26.0">
                <font>
                   <Font size="15.0" />
                </font>
