@@ -46,10 +46,20 @@ public class AddBookController {
             alert.showAndWait();
             return;
         }
-        if (isFiction)
-            Library.getInstance().addBook(isbn,title,author,publisher,year,"Fiction");
-        else
-            Library.getInstance().addBook(isbn,title,author,publisher,year,"Non-Fiction");
+        try {
+            if (isFiction)
+                Library.getInstance().addBook(isbn, title, author, publisher, year, "Fiction");
+            else
+                Library.getInstance().addBook(isbn, title, author, publisher, year, "Non-Fiction");
+        }
+        catch (Exception ex){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Duplicated Book");
+            alert.setHeaderText(null);
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+            return;
+        }
         isbnField.clear();
         titleField.clear();
         authorField.clear();

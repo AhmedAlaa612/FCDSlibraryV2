@@ -23,8 +23,6 @@ public class MainControllers implements Initializable {
     private void addBtn() throws IOException {
         Main.showAdd();
     }
-    @FXML
-    private  Button refreshBtn;
     // tableview
     @FXML
     private Button deleteBtn;
@@ -83,6 +81,7 @@ public class MainControllers implements Initializable {
     }
     public void load_data(){
         library.setItems(Library.getInstance().getBookList());
+        search();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -117,9 +116,5 @@ public class MainControllers implements Initializable {
         if (selectedBook != null) {
             Library.getInstance().deleteBook(selectedBook);
         }
-    }
-    @FXML
-    public void refreshScene() throws IOException {
-        library.refresh();
     }
 }
