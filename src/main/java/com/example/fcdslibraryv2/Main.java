@@ -39,4 +39,18 @@ public class Main extends Application {
         AddBook.setScene(scene);
         AddBook.showAndWait();
     }
+    public static void showEdit(Book book) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("EditBook.fxml"));
+        Parent root = loader.load();
+        EditBookController controller = loader.getController();
+        controller.setBookData(book);
+        Stage editBookStage = new Stage();
+        editBookStage.setTitle("Edit Book");
+        editBookStage.initModality(Modality.WINDOW_MODAL);
+        editBookStage.initOwner(primaryStage); // Make sure to have primaryStage defined or replace it with the appropriate Stage object
+        Scene scene = new Scene(root);
+        editBookStage.setScene(scene);
+        editBookStage.showAndWait();
+    }
+
 }
