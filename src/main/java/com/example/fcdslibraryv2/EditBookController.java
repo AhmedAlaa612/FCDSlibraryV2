@@ -39,7 +39,7 @@ public class EditBookController{
         authorField.setText(book.getAuthor());
         yearField.setText(book.getRelease_year());
         publisherField.setText(book.getPublisher());
-        if (fictionBtn.isSelected())
+        if (book.getGenre().equals("Fiction"))
             fictionBtn.setSelected(true);
         else
             nonfictionBtn.setSelected(true);

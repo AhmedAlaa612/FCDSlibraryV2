@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -138,8 +139,11 @@
                      <font>
                         <Font name="Franklin Gothic Demi Cond" size="18.0" />
                      </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="genre" />
+                     </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="fictionBtn" mnemonicParsing="false" text="Fiction" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <RadioButton fx:id="fictionBtn" mnemonicParsing="false" text="Fiction" toggleGroup="$genre" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font name="Franklin Gothic Demi Cond" size="18.0" />
                      </font>
