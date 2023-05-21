@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,11 +19,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
+        Main.primaryStage = primaryStage;
         primaryStage.setTitle("FCDS Library");
-        showMainview();
+        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("logo.png")));
+        showMainView();
     }
-    public static void showMainview() throws IOException {
+    public static void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainView.fxml"));
         BorderPane root = loader.load();
         primaryStage.setScene(new Scene(root));
@@ -47,7 +49,7 @@ public class Main extends Application {
         Stage editBookStage = new Stage();
         editBookStage.setTitle("Edit Book");
         editBookStage.initModality(Modality.WINDOW_MODAL);
-        editBookStage.initOwner(primaryStage); // Make sure to have primaryStage defined or replace it with the appropriate Stage object
+        editBookStage.initOwner(primaryStage);
         Scene scene = new Scene(root);
         editBookStage.setScene(scene);
         editBookStage.showAndWait();

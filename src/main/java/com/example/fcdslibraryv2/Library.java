@@ -1,9 +1,9 @@
 package com.example.fcdslibraryv2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 
 public class Library {
+    // singleton
     private static Library instance;
     private Library() {}
     public static Library getInstance(){
@@ -39,7 +39,7 @@ public class Library {
         bookList.remove(book);
         System.out.println("Book removed successfully!");
     }
-
+    //search in book list for books with the isbn passed and return number of books with that isbn
     public int searchBooks(String isbn) {
         int booknum = 0;
         for (Book book : bookList) {

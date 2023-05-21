@@ -1,16 +1,15 @@
 package com.example.fcdslibraryv2;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -75,6 +74,7 @@ public class MainControllers implements Initializable {
         //setting the books in the table
         library.setItems(sortedData);
     }
+    // load data to the tableview
     public void load_data(){
         library.setItems(Library.getInstance().getBookList());
         search();
@@ -91,9 +91,10 @@ public class MainControllers implements Initializable {
         release_year.setCellValueFactory(new PropertyValueFactory<>("release_year"));
         publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        // delete and edit buttons
         buttons.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = new Button("Delete");
-            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("\u2716");
+            private final Button editButton = new Button("\u270E");
             private final HBox buttonsContainer = new HBox(deleteButton, editButton);
 
             {
@@ -116,7 +117,13 @@ public class MainControllers implements Initializable {
                         }
                     }
                 });
+                // buttons style
+                buttonsContainer.setAlignment(Pos.CENTER);
+                buttonsContainer.setSpacing(10);
+                deleteButton.setStyle("-fx-background-color: transparent; -fx-background-radius: 0;-fx-font-size: 18px; -fx-min-width: 40px;");
+                editButton.setStyle("-fx-background-color: transparent; -fx-background-radius: 0;-fx-font-size: 18px; -fx-min-width: 40px;");
             }
+            //update the tableview
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -127,8 +134,7 @@ public class MainControllers implements Initializable {
                 }
             }
         });
-
-            // Add a listener to the book list
+        // Add a listener to the book list
         Library.getInstance().getBookList().addListener((ListChangeListener.Change<? extends Book> change) -> {
             // In the listener, add the new object to the tableview.
             while (change.next()) {
@@ -141,9 +147,10 @@ public class MainControllers implements Initializable {
         search();
     }
     void load_data_from_csv(){
-        String line = "";
+        String line;
         String csvDelimiter = ",";
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ahmed\\IdeaProjects\\FCDSlibraryV2.1\\src\\main\\java\\com\\example\\fcdslibraryv2\\books.csv"))) {
+        try (InputStream inputStream = Main.class.getResourceAsStream("books.csv");
+             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             // Skip the header row
             br.readLine();
             while ((line = br.readLine()) != null) {
@@ -156,7 +163,7 @@ public class MainControllers implements Initializable {
                 String genre = bookData[5];
                 Library.getInstance().addBook(isbn, title, author, publisher, releaseYear, genre);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 

@@ -18,14 +18,14 @@
                   <Font name="Franklin Gothic Demi Cond" size="48.0" />
                </font>
             </Label>
-            <Button layoutX="638.0" layoutY="83.0" mnemonicParsing="false" onAction="#addBtn" prefHeight="30.0" prefWidth="100.0" text="Add" AnchorPane.bottomAnchor="44.2" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="83.0">
+            <Button layoutX="638.0" layoutY="83.0" mnemonicParsing="false" onAction="#addBtn" prefHeight="37.0" prefWidth="137.0" style="-fx-background-radius: 15px;" text="Add new book" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="83.0">
                <font>
                   <Font name="Franklin Gothic Demi Cond" size="20.0" />
                </font>
             </Button>
-            <TextField fx:id="srch" layoutX="26.0" layoutY="84.0" prefHeight="36.0" prefWidth="416.0" promptText="Search" AnchorPane.leftAnchor="26.0">
+            <TextField fx:id="srch" layoutX="26.0" layoutY="84.0" prefHeight="36.0" prefWidth="416.0" promptText="Search" style="-fx-background-radius: 15px;" AnchorPane.leftAnchor="26.0">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Franklin Gothic Demi Cond" size="18.0" />
                </font>
             </TextField>
          </children>
