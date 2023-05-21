@@ -1,10 +1,16 @@
 package com.example.fcdslibraryv2;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AddBookController {
+
+public class EditBookController{
+
     @FXML
     private Button cancelButton;
     @FXML
@@ -23,6 +29,21 @@ public class AddBookController {
     private RadioButton fictionBtn;
     @FXML
     private RadioButton nonfictionBtn;
+
+    private Book book;
+    @FXML
+    public void setBookData(Book book){
+        this.book = book;
+        isbnField.setText(book.getIsbn());
+        titleField.setText(book.getTitle());
+        authorField.setText(book.getAuthor());
+        yearField.setText(book.getRelease_year());
+        publisherField.setText(book.getPublisher());
+        if (book.getGenre().equals("Fiction"))
+            fictionBtn.setSelected(true);
+        else
+            nonfictionBtn.setSelected(true);
+    }
     @FXML
     public void submitBtn(){
         String isbn = isbnField.getText();
@@ -33,7 +54,7 @@ public class AddBookController {
         boolean isFiction = fictionBtn.isSelected();
         // Check if all fields are filled
         if (isbn.isEmpty() || title.isEmpty() || author.isEmpty() || year.isEmpty() || publisher.isEmpty()
-        || (!isFiction && !nonfictionBtn.isSelected())) {
+                || (!isFiction && !nonfictionBtn.isSelected())) {
             // Show a message if any field is empty
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Incomplete Information");
@@ -42,27 +63,23 @@ public class AddBookController {
             alert.showAndWait();
             return;
         }
-        try {
-            if (isFiction)
-                Library.getInstance().addBook(isbn, title, author, publisher, year, "Fiction");
-            else
-                Library.getInstance().addBook(isbn, title, author, publisher, year, "Non-Fiction");
-        }
-        catch (Exception ex){
+        if (Library.getInstance().searchBooks(isbn) > 0 && !book.getIsbn().equals(isbn)){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Duplicated Book");
             alert.setHeaderText(null);
-            alert.setContentText(ex.getMessage());
+            alert.setContentText("A Book with the same ISBN already exists!");
             alert.showAndWait();
             return;
         }
-        isbnField.clear();
-        titleField.clear();
-        authorField.clear();
-        yearField.clear();
-        publisherField.clear();
-        fictionBtn.setSelected(false);
-        nonfictionBtn.setSelected(false);
+        book.setIsbn(isbn);
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setRelease_year(year);
+        book.setPublisher(publisher);
+        if (fictionBtn.isSelected())
+            book.setGenre("Fiction");
+        else
+            book.setGenre("Non-Fiction");
         Stage stage = (Stage)submitBtn.getScene().getWindow();
         stage.close();
     }

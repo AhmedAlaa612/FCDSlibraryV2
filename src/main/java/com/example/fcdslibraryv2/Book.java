@@ -11,6 +11,7 @@ public abstract class Book {
     }
     //abstraction
     public abstract String getGenre();
+    public abstract void setGenre(String genre);
     // setters and getters
     public String getIsbn() {
         return isbn;
@@ -31,4 +32,25 @@ public abstract class Book {
     public String getRelease_year() {
         return release_year;
     }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setRelease_year(String release_year) {
+        this.release_year = release_year;
+    }
+
 }
