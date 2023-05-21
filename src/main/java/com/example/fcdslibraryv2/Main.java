@@ -10,6 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     public static Stage primaryStage;
@@ -21,7 +22,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Main.primaryStage = primaryStage;
         primaryStage.setTitle("FCDS Library");
-        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("logo.png")));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("logo.png"))));
         showMainView();
     }
     public static void showMainView() throws IOException {
@@ -31,8 +32,7 @@ public class Main extends Application {
         primaryStage.show();
     }
     public static void showAdd() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        BorderPane addNewBook =loader.load(Main.class.getResource("AddNewBook.fxml"));
+        BorderPane addNewBook = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("AddNewBook.fxml")));
         Stage AddBook = new Stage();
         AddBook.setTitle("Add new book");
         AddBook.initModality(Modality.WINDOW_MODAL);
