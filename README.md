@@ -1,7 +1,11 @@
 # FCDSlibrary
 a library management system developed using javafx, as final project for programming 2 class
 
-![input](https://github.com/AhmedAlaa612/FCDSlibraryV2/assets/53920535/d1973ab7-d7c4-4073-8d49-f33c2ab461a4)
+
+
+https://github.com/AhmedAlaa612/FCDSlibraryV2/assets/53920535/1b7028c3-72a5-495c-89f8-dd7dc25553b5
+
+
 
 ## Introduction
 FCDSlibrary is a simple javafx application where you can manage, search, add, edit and remove books.
